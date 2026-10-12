@@ -1,0 +1,208 @@
+:root {
+    color-scheme: dark;
+    --bp-bg: #0a1222;
+    --bp-nav: #070c16;
+    --bp-surface: #131f36;
+    --bp-surface-raised: #1c2e4b;
+    --bp-border: rgba(101, 127, 168, 0.3);
+    --bp-border-strong: #4c6892;
+    --bp-text: #e5eaf3;
+    --bp-muted: #a8b5ca;
+    --bp-accent: #344f79;
+    --bp-accent-hover: #293f63;
+    --bp-accent-light: #8fa3c2;
+    --line: var(--bp-border);
+    --purple: var(--bp-accent-light);
+    --purple-2: var(--bp-accent);
+    --purple-3: var(--bp-accent-light);
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--bp-bg);
+    color: var(--bp-text);
+}
+
+.navbar-custom,
+.sidebar {
+    background-color: var(--bp-nav) !important;
+    border-color: var(--bp-border) !important;
+}
+
+.navbar-custom {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+}
+
+.navbar-brand.text-info,
+.text-info,
+.nav-link.active.text-info,
+.modal-title.text-info {
+    color: var(--bp-accent-light) !important;
+}
+
+.nav-link {
+    color: var(--bp-muted);
+    transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.sidebar .nav-link.active,
+.sidebar .nav-link:hover,
+.sidebar .nav-link:focus {
+    color: #fff !important;
+    background-color: var(--bp-accent-hover) !important;
+}
+
+.card-stat,
+.service-card,
+.barber-card,
+.modal-content {
+    background-color: var(--bp-surface) !important;
+    border-color: var(--bp-border-strong) !important;
+    color: var(--bp-text);
+}
+
+.service-card,
+.barber-card,
+.card-stat {
+    border-radius: 14px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+}
+
+.service-card,
+.barber-card {
+    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.service-card:hover,
+.barber-card:hover {
+    border-color: var(--bp-accent-light) !important;
+    box-shadow: 0 16px 34px rgba(0, 0, 0, 0.28);
+}
+
+.btn-primary,
+.btn-info,
+.btn-blue,
+.badge.bg-primary {
+    background-color: var(--bp-accent) !important;
+    border-color: var(--bp-border-strong) !important;
+    color: #fff !important;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-info:hover,
+.btn-info:focus,
+.btn-blue:hover,
+.btn-blue:focus {
+    background-color: var(--bp-accent-hover) !important;
+    border-color: var(--bp-accent-light) !important;
+    color: #fff !important;
+}
+
+.btn-outline-info {
+    color: var(--bp-accent-light);
+    border-color: var(--bp-border-strong);
+}
+
+.btn-outline-info:hover,
+.btn-outline-info:focus {
+    background-color: var(--bp-accent);
+    border-color: var(--bp-border-strong);
+    color: #fff;
+}
+
+.form-control,
+.form-select,
+.dataTables_wrapper .dataTables_filter input,
+.dataTables_wrapper .dataTables_length select {
+    background-color: var(--bp-bg);
+    border-color: var(--bp-border-strong);
+    color: var(--bp-text);
+}
+
+.form-control::placeholder {
+    color: var(--bp-muted);
+    opacity: 0.8;
+}
+
+.form-control:focus,
+.form-select:focus {
+    background-color: var(--bp-bg);
+    border-color: var(--bp-accent-light);
+    color: #fff;
+    box-shadow: 0 0 0 0.2rem rgba(101, 127, 168, 0.2);
+}
+
+.dropdown-menu-dark,
+.dropdown-menu {
+    background-color: var(--bp-nav);
+    border-color: var(--bp-border);
+}
+
+.dropdown-item {
+    color: var(--bp-text);
+}
+
+.dropdown-item:hover,
+.dropdown-item:focus {
+    background-color: var(--bp-surface-raised);
+    color: #fff;
+}
+
+.table,
+.table-dark {
+    --bs-table-color: var(--bp-text);
+    --bs-table-bg: var(--bp-surface);
+    --bs-table-border-color: var(--bp-border);
+    --bs-table-striped-bg: rgba(101, 127, 168, 0.08);
+    --bs-table-hover-bg: rgba(101, 127, 168, 0.13);
+    --bs-table-hover-color: #fff;
+}
+
+.carousel-caption {
+    border-color: var(--bp-border-strong) !important;
+}
+
+.mockup-shell {
+    background-color: rgba(10, 18, 34, 0.9) !important;
+    border-color: var(--bp-border) !important;
+}
+
+.mockup-shell .panel,
+.mockup-shell .desktop-panel {
+    border-color: var(--bp-border-strong) !important;
+}
+
+.mockup-shell .badge {
+    border-color: var(--bp-border-strong);
+    background-color: rgba(76, 104, 146, 0.2);
+    color: var(--bp-text);
+}
+
+.mockup-shell .register-bubble {
+    border-color: var(--bp-accent-light);
+    color: var(--bp-text);
+    box-shadow: 0 0 15px rgba(76, 104, 146, 0.28);
+}
+
+:focus-visible {
+    outline: 2px solid var(--bp-accent-light);
+    outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+    }
+}
