@@ -18,9 +18,17 @@
         .table { color: #fff; }
         .dataTables_wrapper .dataTables_filter input, .dataTables_wrapper .dataTables_length select { background-color: #0b132b; color: #fff; border: 1px solid #3a86ff; }
         .dataTables_wrapper .dataTables_info, .dataTables_wrapper .dataTables_paginate { color: #8d99ae !important; }
+        .dataTables_wrapper .dataTables_filter input,
+        .dataTables_wrapper .dataTables_length select { border-radius: 6px; padding: 5px 8px; }
+        .dataTables_wrapper .dataTables_paginate .paginate_button { color: #8d99ae !important; }
+        .dataTables_wrapper .dataTables_paginate .paginate_button.current,
+        .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover { background: #3a86ff !important; border-color: #3a86ff !important; color: #fff !important; }
+        .dataTables_wrapper .dataTables_paginate .paginate_button:hover { background: #1c2541 !important; border-color: #3a86ff !important; color: #fff !important; }
+        .dataTables_wrapper label { color: #8d99ae; }
         .modal-content { background-color: #1c2541; color: #fff; border: 1px solid #3a86ff; border-radius: 15px; }
         .form-control { background-color: #0b132b; border: 1px solid #2b3a67; color: #fff; }
         .form-control::placeholder { color: #6c757d; opacity: 1; }
+        .form-control:focus { background-color: #0b132b; color: #fff; border-color: #3a86ff; box-shadow: 0 0 0 0.2rem rgba(58, 134, 255, 0.2); }
     </style>
 </head>
 <body>
@@ -104,6 +112,35 @@
         </div>
     </div>
 
+    <!-- MODAL REGISTRAR EMPLEADO -->
+    <div class="modal fade" id="modalNuevoEmp" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content p-4">
+                <div class="modal-header border-0">
+                    <h4 class="modal-title text-info"><i class="fa-solid fa-user-plus me-2"></i>Registrar Empleado</h4>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="formNuevoEmp">
+                        <div class="mb-3">
+                            <label for="nombreEmpleado" class="form-label small">Nombre Completo</label>
+                            <input id="nombreEmpleado" type="text" class="form-control" placeholder="Ej. Ana María" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="emailEmpleado" class="form-label small">Correo Electrónico</label>
+                            <input id="emailEmpleado" type="email" class="form-control" placeholder="correo@barberpro.com" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="telefonoEmpleado" class="form-label small">Teléfono</label>
+                            <input id="telefonoEmpleado" type="tel" class="form-control" placeholder="3000000000" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100 rounded-pill">Guardar Empleado</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- MODAL DETALLES -->
     <div class="modal fade" id="modalDetalles" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
@@ -126,8 +163,58 @@
     <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
     <script>
         $(document).ready(function() {
-            $('#Tablita').DataTable({
-                "language": { "url": "//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json" }
+            const tabla = $('#Tablita').DataTable({
+                language: {
+                    emptyTable: 'No hay empleados registrados',
+                    info: 'Mostrando _START_ a _END_ de _TOTAL_ empleados',
+                    infoEmpty: 'Mostrando 0 a 0 de 0 empleados',
+                    infoFiltered: '(filtrado de _MAX_ empleados en total)',
+                    lengthMenu: 'Mostrar _MENU_ empleados',
+                    loadingRecords: 'Cargando...',
+                    processing: 'Procesando...',
+                    search: 'Buscar:',
+                    zeroRecords: 'No se encontraron empleados',
+                    paginate: {
+                        first: 'Primero',
+                        last: 'Último',
+                        next: 'Siguiente',
+                        previous: 'Anterior'
+                    },
+                    aria: {
+                        sortAscending: ': activar para ordenar ascendentemente',
+                        sortDescending: ': activar para ordenar descendentemente'
+                    }
+                }
+            });
+
+            $('#formNuevoEmp').on('submit', function(event) {
+                event.preventDefault();
+
+                const nombre = $('#nombreEmpleado').val().trim();
+                const email = $('#emailEmpleado').val().trim();
+                const telefono = $('#telefonoEmpleado').val().trim();
+
+                if (!nombre || !email || !telefono) {
+                    this.reportValidity();
+                    return;
+                }
+
+                const numero = tabla.rows().count() + 1;
+                const acciones = '<button class="btn btn-sm btn-info text-white" data-bs-toggle="modal" data-bs-target="#modalDetalles">Ver</button> ' +
+                    '<button class="btn btn-sm btn-warning">Editar</button> ' +
+                    '<button class="btn btn-sm btn-secondary">Deshabilitar</button> ' +
+                    '<button class="btn btn-sm btn-danger">Eliminar</button>';
+
+                tabla.row.add([
+                    numero,
+                    $('<div>').text(nombre).html(),
+                    $('<div>').text(email).html(),
+                    '<span class="badge bg-success">Activo</span>',
+                    acciones
+                ]).draw();
+
+                this.reset();
+                bootstrap.Modal.getInstance(document.getElementById('modalNuevoEmp')).hide();
             });
         });
     </script>
